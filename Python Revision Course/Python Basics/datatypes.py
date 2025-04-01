@@ -4,7 +4,7 @@ var2 = 2.5          # float data type
 var2 = True         # boolean data type
 var4 = "10 + 3j"    # complex data type
 
-str = "Hello World"
+str = "Hello World" # string data type
 
 print (str)         # Prints complete string
 print (str[0])      # Prints first character of the string
