@@ -38,7 +38,9 @@ print (tuple1[2:])           # Prints elements of tuple1 starting from 3rd eleme
 print (tuple2 * 2)           # Prints the contents of tuple2 twice
 print (tuple1 + tuple2)      # Prints concatenated tuples
 
-# The difference between lists and tuples is that lists are mutable and tuples are immutable. That is, the elements of a list can be changed after creation, while those of a tuple cannot. Tuples can be thought of as constants or read-only, while lists can be thought of as variables.
+# The difference between lists and tuples is that lists are mutable and tuples are immutable. 
+# That is, the elements of a list can be changed after creation, while those of a tuple cannot. 
+# Tuples can be thought of as constants or read-only, while lists can be thought of as variables.
 
 
 #4. Range data type 
@@ -121,4 +123,46 @@ arr = array.array('i', [1, 2, 3, 4, 5])
 print (memoryview(arr))                 # output = <memory at 0x7f8d8c0e7f60>
 
 
-#7.  Set data type
+#7.  Set data type 
+# A set in Python is an unordered collection of unique elements.
+set1 = {1, 2, 3, 4, 5}
+set2 = {'Java', 'Python', 'JavaScript'}
+print(set1)                         # output = {1, 2, 3, 4, 5}
+print(set2)                         # output = {'Java', 'Python', 'JavaScript'}
+
+
+# 8.  Python Boolean data type
+# This data type represent one of the two values either True or False.
+# Python bool() function allows you to evaluate the value of any expression and 
+# return either True or False based on the expression.
+a = True
+print(a)        # display the value of a. That is, output = True
+print(type(a))      # display the data type of a. That is, output = <class 'bool'>, indicating
+                            #it's a boolean.
+                            
+
+# Following is another program which evaluates the expressions and prints the return values
+
+# Returns false as a is not equal to b
+a = 2
+b = 4
+print(bool(a==b))
+
+# Following also prints the same
+print(a==b)
+
+# Returns False as a is None
+a = None
+print(bool(a))
+
+# Returns false as a is an empty sequence
+a = ()
+print(bool(a))
+
+# Returns false as a is 0
+a = 0.0
+print(bool(a))
+
+# Returns false as a is 10
+a = 10
+print(bool(a))
