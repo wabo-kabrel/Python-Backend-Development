@@ -41,3 +41,15 @@ print(f"You are {age} years old.")
 
 # Multi-line Input
 '''If you need to accept multiple lines of input, you can use a loop or read input until a specific condition is met (e.g., an empty line).'''
+# Ex:
+print("Enter your text (press Enter twice to finish):")
+lines = []
+while True:
+    line = input()
+    if line.strip() == "":
+        break
+    lines.append(line)
+
+print("You entered:")
+for line in lines:
+    print(line)
