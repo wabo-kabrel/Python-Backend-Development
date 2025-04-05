@@ -18,6 +18,7 @@ def strToInt(myString):
    for x in myString:
       if x not in '01': return "Error. String with non-binary characters"   # If any character is not '0' or 
                                                                             #'1',   it returns an error.
+                                                                            
    num = int(myString, 2)       # This uses Python's built-in int() function to convert from base 2 to base 10.
    return num
 print ("binary:{} integer: {}".format(myString,strToInt(myString)))
