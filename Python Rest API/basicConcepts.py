@@ -38,7 +38,7 @@ brings you the food (response).'''
     # Use the bash command: pip install flask
 
 
-#5. Flask API Example: Hello World API
+#5. Flask API Example: Hello Rest API
     # Create a file called app.py which will contain the code below
     # Run the app by using the bash command "python app.py". NOte that you need
     #to be in the app's directory in the terminal in order for it to work.
