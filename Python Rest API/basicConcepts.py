@@ -34,5 +34,24 @@ brings you the food (response).'''
     # - Browser - for GET requests
 
 
+#4. Installing Flask
+    # Use the bash command: pip install flask
 
 
+#5. Flask API Example: Hello World API
+    # Create a file called app.py which will contain the code below
+    # Run the app by using the bash command "python app.py". NOte that you need
+    #to be in the app's directory in the terminal in order for it to work.
+    # Now visit http://localhost:5000 in your browser. You’ll see “Hello, REST API!”
+
+ 
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, REST API!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
