@@ -8,6 +8,9 @@ brings you the food (response).'''
 #2. What is a REST API?
     # REST = Representational State Transfer.
     # REST is a style (not a technology) used to design networked applications.
+    # Beginners can assume a REST API means an HTTP service that can be called 
+    #using standard web libraries and tools. An API that doesn't do anything ("resting")
+    #unless you call it.
 
 # Key concepts in REST:
     # - Client: The user or frontend.
@@ -32,10 +35,14 @@ brings you the food (response).'''
     # - Flask - a lightweight web framework
     # - Postman - for API testing
     # - Browser - for GET requests
-
+    # - Virtual Environment (Optional) - Use a virtual environment in each project
+    #in a repository to avoid dependency conflicts between the various projects.
+    # Use the bash command: "py -m venv .venv" to create a virtual environment in a folder.
+    # For each Flask API project, you need to install the Flask dependencies as shown in #4
 
 #4. Installing Flask
     # Use the bash command: pip install flask
+    # You can directly create a REST API using the bash command: flask_restful
 
 
 #5. Flask API Example: Hello Rest API
