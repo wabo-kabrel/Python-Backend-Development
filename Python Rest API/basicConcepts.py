@@ -41,8 +41,12 @@ brings you the food (response).'''
     # For each Flask API project, you need to install the Flask dependencies as shown in #4
 
 #4. Installing Flask
-    # Use the bash command: pip install flask
-    # You can directly create a REST API using the bash command: flask_restful
+    # - Use the bash command: pip install flask
+    # - You can directly create a REST API using the bash command: pip install flask_restful.
+    # - Use "pip install flask_sqlalchemy" to install the ORM (object relational mapping)
+    #which will be used to talk to the database from the Python code.
+    # - Use "pip freeze > requirements.txt" to create a requirement text file which will
+    #show all the dependencies that have been installed.
 
 
 #5. Flask API Example: Hello Rest API
