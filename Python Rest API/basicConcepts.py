@@ -40,13 +40,15 @@ brings you the food (response).'''
     # Use the bash command: "py -m venv .venv" to create a virtual environment in a folder.
     # For each Flask API project, you need to install the Flask dependencies as shown in #4
 
-#4. Installing Flask
+#4. Installing Flask and other tools
     # - Use the bash command: pip install flask
     # - You can directly create a REST API using the bash command: pip install flask_restful.
     # - Use "pip install flask_sqlalchemy" to install the ORM (object relational mapping)
     #which will be used to talk to the database from the Python code.
     # - Use "pip freeze > requirements.txt" to create a requirement text file which will
-    #show all the dependencies that have been installed.
+    #show all the dependencies that have been installed (dependencies required for the project).
+    # - Use "pip install -r requirements.txt" to install all the dependencies listed in a requirements.txt file.
+    # - The gitignore file contains files/folders which you don't want to upload to GitHub.
 
 
 #5. Flask API Example: Hello Rest API
