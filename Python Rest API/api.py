@@ -3,6 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'     # use a SQLite database stored in a 
+                                                                    #file named database.db.
+db = SQLAlchemy(app)        # SQLAlchemy(app) connects the app to the database.
+
+class UserModel(db.Model):          # Defines a model ( a table in the database called UserModel)
+    id = db.Column(db.Integer, primary_key=True)        # id is the primary key
+    name = db.Column(db.String(80), unique=True, nullable=False)    # name is a column in the table
+    email = db.Column(db.String(80), unique=True, nullable=False)   # email is a column in the table
+
+    def __repr__(self):         # returns a string representation of the object in the database.
+        return f"User(name = {self.name}, email = {self.email})"
+    
 # The route is used to request data from the server.
 # The data is requested using a URL.
 # The response is sent back to the client (browser).
