@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_restful import Resource, Api, reqparse, fields, marshall_with, abort
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'     # use a SQLite database stored in a 
                                                                     #file named database.db.
 db = SQLAlchemy(app)        # SQLAlchemy(app) connects the app to the database.
+api = Api(app)
 
 class UserModel(db.Model):          # Defines a model ( a table in the database called UserModel)
     id = db.Column(db.Integer, primary_key=True)        # id is the primary key
