@@ -12,10 +12,19 @@ class UserModel(db.Model):          # Defines a model ( a table in the database 
     id = db.Column(db.Integer, primary_key=True)        # id is the primary key
     name = db.Column(db.String(80), unique=True, nullable=False)    # name is a column in the table
     email = db.Column(db.String(80), unique=True, nullable=False)   # email is a column in the table
-
     def __repr__(self):         # returns a string representation of the object in the database.
         return f"User(name = {self.name}, email = {self.email})"
     
+user_args = reqparse.RequestParser()
+user_args.add_argument('name', type=str, help='Name cannot be blank', required=True)
+user_args.add_argument('email', type=str, help='Email
+
+class Users(Resource):
+     def get(self):
+         users = UserModel.query.all()
+         return users
+
+api.add_resource(Users, '/api/users')
 # The route is used to request data from the server.
 # The data is requested using a URL.
 # The response is sent back to the client (browser).
