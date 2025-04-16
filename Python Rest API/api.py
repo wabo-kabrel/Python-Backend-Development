@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Resource, Api, reqparse, fields, marshall_with, abort
+from flask_restful import Resource, Api, reqparse, fields, marshal_with, abort
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'     # use a SQLite database stored in a 
@@ -17,18 +17,35 @@ class UserModel(db.Model):          # Defines a model ( a table in the database 
     
 user_args = reqparse.RequestParser()
 user_args.add_argument('name', type=str, help='Name cannot be blank', required=True)
-user_args.add_argument('email', type=str, help='Email
+user_args.add_argument('email', type=str, help='Email', required=True)
+
+userFields = {
+    'id' : fields.Integer,
+    'name' : fields.String,
+    'email' : fields.String
+}
 
 class Users(Resource):
+     @marshal_with(userFields)
      def get(self):
-         users = UserModel.query.all()
+         users = UserModel.query.all() 
          return users
+     
+     @marshal_with(userFields)
+     def post(self):
+         args = user_args.parse_args()
+         user = UserModel(name=args["name"], email=args["email"])
+         db.session.add(user)
+         db.session.commit()
+         users = UserModel.query.all()
+         return users, 201
+
 
 api.add_resource(Users, '/api/users')
+
 # The route is used to request data from the server.
 # The data is requested using a URL.
 # The response is sent back to the client (browser).
-
 @app.route('/')     # A slash / comes after the domain 
 def home():
     return '<h1>Flask Rest API</h1>'
