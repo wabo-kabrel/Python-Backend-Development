@@ -6,7 +6,7 @@
 
 #2. Activating the virtual environment. This step is necessary to ensure that
 # your project's dependencies are installed in the virtual environment. Run the
-# command below to activate the virtual environment.
+# command below to activate the virtual environment called myenv.
 # On Windows:
 # myenv\Scripts\activate
 # On Linux and macOS:
