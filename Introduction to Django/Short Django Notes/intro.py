@@ -14,9 +14,14 @@
 
 # Foundational Concepts in Django & Backend Development
 
-#1. Project: The entire web application, which can contain multiple apps.
+#1. Project: 
+# - The entire web application or website, which can contain multiple apps.
+# - Created with `django-admin startproject mysite`
 
-#2. App: A self-contained module within a project that provides specific functionality.
+#2. App: 
+# - A self-contained module within a project that provides specific functionality.
+# - Example: You might have an app for user authentication, another for blog posts, etc.
+# - Created with `python manage.py startapp myapp` where myapp is the name of your app.
 
 #3. Model:
 # A model defines the structure of your data.  Think of it like a blueprint for a 
@@ -80,3 +85,53 @@ def home(request):
 # HTTP is the language of the web. It's how your browser talks to the server
 # using requests and gets responses.
 
+#9. GET and POST Methods:
+#i. GET:
+# - Used when you want to get data (like visiting a webpage).
+# - Data is sent in the URL (like search queries).
+# - Example: Visiting instagram.com/explore is a GET request.
+
+#ii. POST:
+# - Used when you want to send data to the server (like submitting a form).
+# - Data is sent in the body of the request, not in the URL.
+# - Example: When you log in or register, you POST your username and password.
+'''
+def login_view(request):
+    if request.method == 'POST':
+        # Handle form submission
+        ...
+    else:
+        # Show empty login form
+        ...
+
+'''
+# - You check request.method to see if the form was submitted or not.
+
+#10. Request and Response:
+# - A request is when the user (via a browser) asks for something from the server.
+# - A response is what Django sends back(HTML page, JSON, error, etc.)
+# Example:
+'''
+def home(request):  # ← request object from the browser
+    return HttpResponse("Hello, World!")  # ← response
+'''
+
+#11. Admin Panel
+# - A built-in Django feature that gives you a dashboard to view and
+# edit your database.
+# - Access it at `http://127.0.0.1:8000/admin/`
+# - Register your models in admin.py to manage them through the admin interface.
+# Example:
+'''
+from .models import Post
+admin.site.register(Post)
+'''
+
+#12. Migration
+# - When you make changes to models (like adding fields), Django 
+# needs to update the database. This is done with migrations.
+# - Common commands used:
+'''
+python manage.py makemigrations  # Create the migration file
+python manage.py migrate         # Apply the changes to the database
+'''
