@@ -8,10 +8,12 @@
 
 # Typical Content of urls.py
 
-from django.urls import path
-from . import views
+from django.urls import path # Imports the path() function used to define URL routes. 
+                             # path() accepts: route, view, and name.   
+
+from . import views         # Imports your local views module from the same folder (i.e., myapp/views.py).
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('about/', views.about, name='about'),
+#    path('about/', views.about, name='about'),
 ]
