@@ -130,6 +130,6 @@ def contact(request):
 
 
 #   How Views Fit Into the Django Flow
-# - User visits /about/ → URLconf finds views.about → 
-#   views.about() runs → render() returns HTML → Page shows in browser
-
+''' User visits /about/ → URLconf finds views.about → 
+    views.about() runs → render() returns HTML → Page shows in browser
+'''
