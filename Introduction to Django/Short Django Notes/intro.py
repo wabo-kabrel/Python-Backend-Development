@@ -135,3 +135,7 @@ admin.site.register(Post)
 python manage.py makemigrations  # Create the migration file
 python manage.py migrate         # Apply the changes to the database
 '''
+
+#13. Root Directory
+# - The root or base directory of a Django project is the directory that contains the
+#   manage.py file and the project folder. 
