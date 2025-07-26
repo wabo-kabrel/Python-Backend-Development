@@ -89,3 +89,47 @@ def about(request):
 '''
 
 #5.  Handling User Input: GET vs POST
+#i. GET Request:
+# - Used to retrieve (ask for) data from the server.
+# - Example: When you type a URL in your browser, it sends a GET request.
+
+#ii. POST Request:
+# - Used to send data to the server, like when you submit a form.
+# - Example: When you fill out a form and click "Submit", it sends a POST request.
+
+# - Example: Handling a form in a View
+'''
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        return HttpResponse(f"Thanks, {name}!")
+    return render(request, 'pages/contact.html')
+
+'''
+# In contact.html:
+'''
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Your name">
+    <button type="submit">Send</button>
+</form>
+'''
+
+# - {% csrf_token %} protects your form from hackers using
+# Cross-Site Request Forgery attacks.
+
+
+#6. Best Practices for Writing Views
+# - Keep views clean and simple: Don't put too much logic in them.
+# - Use templates: Return full HTML using render(), not HttpResponse
+#  unless needed.
+# - Use context: Pass data to templates using dictionaries.
+# - Use CBVs for complex logic: Class-based views are better for advanced pages like 
+#   forms, APIs, etc.
+# - Use meaningful names: 	Name your views clearly, e.g., user_profile, dashboard, etc.
+
+
+#   How Views Fit Into the Django Flow
+# - User visits /about/ → URLconf finds views.about → 
+#   views.about() runs → render() returns HTML → Page shows in browser
+
