@@ -125,3 +125,57 @@ TEMPLATES = [
     }
 ]
 '''
+
+#4. Environment-Specific Settings (Dev vs Production)
+# - Dev = debugging & experimenting
+# - Prod = secure, stable, safe
+# - Here's how to separate them:
+#  Structure:
+'''
+myproject/
+│
+├── settings/
+│   ├── __init__.py
+│   ├── base.py
+│   ├── development.py
+│   └── production.py
+'''
+    # - base.py: shared settings
+    # - development.py: DEBUG=True, use SQLite
+    # - production.py: DEBUG=False, use PostgreSQL, add security
+# - Then in manage.py or wsgi.py, set:
+''' os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings.development")
+'''
+
+
+#5. Safely Managing Secret Keys and Debug Mode
+# ❌ Avoid doing this in production:
+'''
+SECRET_KEY = 'hardcoded-secret-key'
+DEBUG = True
+'''
+# ✅ Instead, use environment variables:
+    # - Install python-decouple:
+'''     pip install python-decouple
+'''
+    # - Create a .env file:
+'''
+        SECRET_KEY=your-secret
+        DEBUG=True
+'''
+    # - Update settings.py:
+'''
+        from decouple import config
+
+        SECRET_KEY = config('SECRET_KEY')
+        DEBUG = config('DEBUG', default=False, cast=bool)
+'''
+    # - Now your secret key isn’t visible in the code!
+
+
+#6.  Best Practices with settings.py
+# - Use .env files:	                        Keep secrets secure
+# - Turn DEBUG off in production:	        Avoid leaking sensitive info
+# - Separate settings by environment:	    Better organization and safety
+# - Use BASE_DIR:	                        Consistent path references
+# - Keep INSTALLED_APPS clean:	            Only include what's used
