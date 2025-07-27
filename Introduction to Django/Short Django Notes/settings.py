@@ -83,5 +83,45 @@ STATIC_URL = '/static/'
     # - Example:
     #   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-#v. MEDIA_URL and Media Files
+#v. MEDIA_URL and Uploaded Files
+'''
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+'''
+    # - Purpose:  Handles user-uploaded files (e.g., profile pictures, PDFs, etc.)
+    # - Example:
+        # - User uploads a profile photo → it’s saved in /media/photos/kabrel.jpg
+        # - You serve it using MEDIA_URL
 
+#vi. Example settings.py Overview (Simplified)
+'''
+# myproject/settings.py
+
+DEBUG = True
+SECRET_KEY = 'xyz123secretkey'
+ALLOWED_HOSTS = []
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    ...
+    'pages',  # Your app
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+TEMPLATES = [
+    {
+        'DIRS': [BASE_DIR / 'templates'],
+        ...
+    }
+]
+'''
