@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Word Counter</title>
+  </head>
+  <body>
+    <h1>Word Counter</h1>
+    <form method="POST" action="{% url 'count' %}">
+      {% csrf_token %}
+      <textarea
+        name="text"
+        rows="10"
+        cols="50"
+        placeholder="Enter text here..."
+      >
+{{ text }}</textarea
+      ><br />
+      <button type="submit">Count Words</button>
+    </form>
+
+    {% if word_count %}
+    <h2>Word Count: {{ word_count }}</h2>
+    {% endif %}
+  </body>
+</html>
