@@ -1,1 +1,7 @@
+{% load static %}
+<!-- We always load tags at the top of html files before using them.
+                       This is done using {% load tagName %}-->
+
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+
 <h1>Hello, I am {{name}}, a {{age}} year old {{nationality}}.</h1>
