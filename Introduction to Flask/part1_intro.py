@@ -1,6 +1,6 @@
 #1. What is Flask?
 # - Flask is a lightweight, flexible Python web framework that provides
-#   the basic tools to build web applications and APIs.
+#   the basic tools to build web applications and APIs (REST APIs).
 # - Unlike Django (a "batteries-included" framework), Flask follows a minimalist
 #   approach, giving you the freedom to choose your components.
 
@@ -59,5 +59,13 @@ source flask-env/bin/activate
 # - Create a new file named `app.py` in your project directory
 # - Add the following code to `app.py`:
 '''
+from flask import Flask
 
+app = Flask(__name__)       # an instance of the Flask class. The web server 
+
+@app.route('/')
+def home():                     # view function
+    return "Hello, Flask!"      # a simple route that returns a string. When a client sends a 
+                                  a request to the slash ('/'), the home function is called and it returns "Hello, Flask!" as a response.
 '''
+# - Run the application using `flask run` in the terminal
