@@ -49,3 +49,8 @@ if __name__ == '__main__':
 # - Debug mode can be disabled by passing ` set FLASK_DEBUG=0` (for Windows) or `export FLASK_DEBUG=0
 #   (for macOS/Linux), when running the `flask run` command.
 # - Programmatically, we simply pass "app.run(debug=False)".
+
+
+# Flask Command-Line Options
+# - The flask command supports a number of options.
+# - To see the available commands and options run `flask --help` or just `flask`.
