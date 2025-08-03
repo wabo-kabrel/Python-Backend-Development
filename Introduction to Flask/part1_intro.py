@@ -56,6 +56,7 @@ source flask-env/bin/activate
 
 
 #5. Creating a Simple Flask Application
+#i. 
 # - Create a new file named `app.py` in your project directory
 # - Add the following code to `app.py`:
 '''
@@ -69,3 +70,25 @@ def home():                     # view function
                                   a request to the slash ('/'), the home function is called and it returns "Hello, Flask!" as a response.
 '''
 # - Run the application using `flask run` in the terminal
+# - Open your web browser and visit `http://127.0.0.1:5000/` (the localhost address)
+# - You should see "Hello, Flask!" displayed in your browser
+
+#ii. Understanding the Code:
+# - When a client makes a request by visiting the website (localhost in this case),
+#   the web server receives and passes the request to the object `app` (an instance
+#   of the Flask class), using the WSGI protocol.
+# - The `@app.route('/')` decorator tells Flask to execute the `home` function whenever
+#   a request is made to the root URL ('/').
+
+#iii. Definition of key terms used:
+# - Route: A URL pattern that maps to a specific function in your application.
+# - View Function: A function that handles a request and returns a response.
+# - Decorator: A special syntax in Python that allows you to modify the behavior of a function or method.
+# - Instance: An object created from a class. In this case, `app` is an instance of the Flask class.
+# - WSGI: Web Server Gateway Interface, a standard interface between web servers and Python web applications.
+# - HTTP: Hypertext Transfer Protocol, the protocol used for communication between clients and servers.
+# - URL: Uniform Resource Locator, the address used to access resources on the web.
+# - Response: The data sent back to the client after processing a request.
+# - Request: The data sent by the client to the server when accessing a resource.
+# - Client: The entity (usually a web browser) that makes requests to the server.
+# - Server: The entity that processes requests and sends responses back to the client.
