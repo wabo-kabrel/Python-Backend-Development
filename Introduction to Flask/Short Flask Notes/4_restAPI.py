@@ -46,5 +46,40 @@
 
 
 #2. JSON 
-# JSON (JavaScript Object Notation) is a lightweight data interchange 
-# format. It's easy to read and write for humans and machines.
+# - JSON (JavaScript Object Notation) is a lightweight data interchange 
+#  format. It's easy to read and write for humans and machines.
+
+# - Example:
+'''
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "year": 1925,
+  "genres": ["Classic", "Fiction"],
+  "available": true
+}
+'''
+
+# JSON Components
+# - Objects: {} - Collections of key-value pairs
+# - Arrays: [] - Ordered lists of values
+# - Keys: Always strings (in quotes)
+# - Values: strings, numbers, booleans, objects, arrays, null
+
+# JSON in HTTP Requests/Responses
+# JSON is the standard format for REST API communication:
+    # - Request body: Client sends JSON data to server
+    # - Response body: Server returns JSON data to client
+    # - Content-Type header: application/json
+
+# Working with JSON in Flask
+# Flask provides built-in functions for JSON handling:
+'''
+from flask import request, jsonify
+
+# Get JSON from request
+data = request.get_json()
+
+# Return JSON response
+return jsonify({"message": "Success"})
+'''
