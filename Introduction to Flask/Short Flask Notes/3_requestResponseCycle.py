@@ -163,12 +163,29 @@ if __name__ == '__main__':
 #---------------------------------------------------------------------------------------------------------
 
 #E. The Response Object
-# - Flask automatically converts your return values into Response objects, 
-#   but you can also create them manually for more control.
+# - When Flask invokes a view function, it expects its return value to be the response
+#   to the request. Mostly, it's a simple string in the form of an HTML page, but the
+#   HTTP protocol requires more than a string as a response to the request. 
+# - The most important part of the HTTP response is the status code, which indicates
+#   whether the request was successful or not. Flask sets this code to  200 by default,
+#   which indicates that the request was carried out successfully.
+#   When the view function needs the response to be a different status code, it can add
+#   the numeric code as a second return value after the response text.
+#   Responses returned by view function can also take a third argument, a dictionary of 
+#   headers that are added to the HTTP response.
 
-#   Ways to Return Responses in Flask
-#1. String: Flask automatically creates a Response object
-#2. Dictionary: Automatically converted to JSON
-#3. Tuple: (body, status_code) or (body, status_code, headers)
-#4. Response object: Full control over the response
-#5. make_response(): Helper function to create Response objects
+# - Response methods:
+    # - set_cookie: Adds the cookie to the response.
+    # - delete_cookie: Removes the cookie from the response.
+    # - set_data: Sets the response body as a string or bytes value.
+    # - get_data: Gets the response body
+
+# - Response variables:
+    # - status_code: Returns the numeric HTTP status code.
+    # - headers: Returns the HTTP headers as a dictionary.
+    # - content_length: Length of the response body
+    # - content_type: The media type of the response body which is to be returned back.
+
+#   Redirect
+# - The redirect response doesn't include a page document, but gives the browser a new URL
+#   to navigate to.
