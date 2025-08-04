@@ -21,6 +21,7 @@ User Browser → Web Server → WSGI → Flask App → Route Matching → View F
 # - WSGI (Web Server Gateway Interface) is the bridge between your Flask app
 #   and the web server. It's a specification that defines how web servers
 #   communicate with Python web applications.
+#---------------------------------------------------------------------------------------------------------
 
 
 #B. Application Context and Request Context
@@ -95,6 +96,79 @@ if __name__ == '__main__':
     test_contexts()
     app.run(debug=True)
 '''
+#---------------------------------------------------------------------------------------------------------
 
 
 #C. Request Dispatching
+#                How Flask Maps URLs to View Functions
+#   Flask uses Werkzeug's routing system to match URLs to view functions.
+#   Here's how it works:
+#1. URL Map Creation: Flask builds a URL map from your @app.route() decorators
+#2. Request Analysis: When a request comes in, Flask analyzes the URL and HTTP method
+#3. Route Matching: Flask searches the URL map for a matching route
+#4. View Function Execution: If found, Flask calls the corresponding view function
+#5. Error Handling: If no match, Flask returns 404 (Not Found) or 405 (Method Not Allowed)
+
+#   URL Converters
+#   Flask supports several built-in URL converters:
+# - string (default): Accepts any text without a slash
+# - int: Accepts positive integers
+# - float: Accepts positive floating point values
+# - path: Like string but accepts slashes
+# - uuid: Accepts UUID strings
+#---------------------------------------------------------------------------------------------------------
+
+#D. Request Object
+# - The request object contains all the data from the current HTTP request. It's
+#   automatically available in your view functions.
+
+# - Request methods
+    # - Request methods indicate the type of action being requested. They include:
+        # - get_data: Returns the raw data of the request body.
+        # - get_json: Returns a Python dictionary with parse JSON data from the request body.
+        # - is_secure: Returns True if the request is made over HTTPS.
+
+# - Important variables through the request object:
+    # - endpoint: The name of the flask endpoint that's handling the request.
+    # - method: Gives the HTTP request such as GET or POST  
+    # - host: The host defined in the request, including the port number if given by the client.
+    # - url: The complete URL requested by the client.
+    # - environ: The raw whiskey environment dictionary for the request.  
+
+# - Request Hooks
+# At times, it is useful to execute some code before and after each request is is proceeded.
+# E.g. At the start of every request, it may be necessary to create a database connection or 
+# authenticate the user making the request. Instead of duplicating the code that performs these
+# actions in every View function, Flask gives you the option to register common functions to be 
+# invoked before or after a request is dispatched.
+# The most common use case is to close database connections after a request is processed.
+# Request hooks are implemented with decorators, and these are the 04 hooks supported by Flask:
+        # - before_request: Registers the function to be executed before each request.
+        # - before_first_request: Registers a function to run only before the first request is handled.
+            #   This can be a convenient way to handle server initialization tasks.
+        # - after_request: Registers a function to run after each request, but only if no unhandled
+            # exceptions occurred.   
+        # - teardown_request: Registers a function to run after every request, even when unhandled
+            # exceptions occur.  
+
+#   Key Request Object Properties
+# - request.method: HTTP method (GET, POST, etc.)
+# - request.form: Form data from POST requests
+# - request.args: Query string parameters
+# - request.json: JSON payload (if Content-Type is application/json)
+# - request.files: Uploaded files
+# - request.headers: Request headers
+# - request.cookies: Cookies sent by client
+# - request.path: The path of the requested URL
+#---------------------------------------------------------------------------------------------------------
+
+#E. The Response Object
+# - Flask automatically converts your return values into Response objects, 
+#   but you can also create them manually for more control.
+
+#   Ways to Return Responses in Flask
+#1. String: Flask automatically creates a Response object
+#2. Dictionary: Automatically converted to JSON
+#3. Tuple: (body, status_code) or (body, status_code, headers)
+#4. Response object: Full control over the response
+#5. make_response(): Helper function to create Response objects
