@@ -101,3 +101,31 @@ After
     """
     # - We used *args and **kwargs Because we don’t know what arguments the decorated function will take 
     #   *args and **kwargs let the decorator handle any function without breaking.
+    
+
+#5. Real-world use cases
+# Decorators are used for:
+# - Logging: Recording when functions are called.
+# - Authentication: Checking if a user is logged in before running code.
+# - Timing: Measuring how long a function takes.
+
+# Ex: Timing a function 
+"""
+import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Time taken: {end - start:.4f} seconds")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(2)
+    print("Done!")
+
+slow_function()
+"""
