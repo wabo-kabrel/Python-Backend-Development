@@ -70,3 +70,34 @@ def greet(name):
 
 greet("Kabrel")
 """
+
+# Output: 
+"""
+Before
+Hello, Kabrel!
+After
+"""
+
+# Explanation:
+    # - my_decorator: A function that takes another function (func) as input.
+    # - wrapper: The new function that will run extra code before and after func.
+    # - return wrapper: Sends back the wrapped version of the original function.
+    # - *args and **kwargs are Python’s way of handling any number of arguments in a function.
+    # - *args (positional arguments)packs all extra positional arguments into a tuple.
+    # - Ex:
+    """
+    def test(*args):
+    print(args)
+
+    test(1, 2, 3)  # → (1, 2, 3)
+    """
+    # - **kwargs (keyword arguments) packs all extra keyword arguments into a dictionary.
+    # - Ex: 
+    """
+    def test(**kwargs):
+    print(kwargs)
+
+    test(a=1, b=2)  # → {'a': 1, 'b': 2}
+    """
+    # - We used *args and **kwargs Because we don’t know what arguments the decorated function will take 
+    #   *args and **kwargs let the decorator handle any function without breaking.
