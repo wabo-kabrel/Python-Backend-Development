@@ -189,3 +189,55 @@ if __name__ == '__main__':
 #   Redirect
 # - The redirect response doesn't include a page document, but gives the browser a new URL
 #   to navigate to.
+#---------------------------------------------------------------------------------------------------------
+
+
+# More Examples
+#1. Consider the code below:
+'''
+from flask import request 
+app = Flask(__name__)
+@app.route('/')
+def index():
+    user_agent = request.headers.get('User-Agent')  
+    return f"<p>Your browser is {user_agent}</p>"
+    
+if __name__ == '__main__':
+    app.run(debug=True)
+'''
+#a. from flask import request
+# - This imports the request object from Flask.
+# - The request object represents the HTTP request sent by the client (e.g., a browser) to your Flask server.
+# - Through request, you can access:
+    # - Headers (browser info, cookies, etc.)
+    # - Query parameters (e.g., ?name=John)
+    # - Form data from POST requests
+    # - Uploaded files
+    # - JSON data
+    
+#b. user_agent = request.headers.get('User-Agent')
+# - request.headers is like a Python dictionary containing all the HTTP headers sent by the browser.
+# - 'User-Agent' is one of these headers and it usually contains:
+    # - The name and version of the browser
+    # - The operating system
+    # - Device info
+# - Example of a User-Agent string:
+'''
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
+AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/115.0.0.0 Safari/537.36
+'''
+
+#c. return '<p>Your browser is %s</p>' % user_agent
+# - This sends an HTML response back to the client.
+# - Example output:
+'''<p>Your browser is Mozilla/5.0 (Windows NT 10.0; Win64; x64)...</p>'''
+
+#d. How it works step-by-step when you run it
+# - User visits http://localhost:5000/
+# - Flask sees the request is for / and calls index().
+# - Inside index():
+    # - It looks at the HTTP headers from the request.
+    # - Finds the User-Agent header (browser details).
+# - Returns an HTML paragraph showing that browser info.
+# - The browser displays the result.
