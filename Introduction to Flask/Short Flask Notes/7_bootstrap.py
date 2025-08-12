@@ -129,5 +129,5 @@ bootstrap = Bootstrap(app)
     </div>
     <script src="/static/bootstrap.min.js"></script>
 </body>
-</html>
+</html> 
 '''

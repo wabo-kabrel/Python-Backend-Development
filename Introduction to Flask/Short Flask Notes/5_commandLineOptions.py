@@ -131,6 +131,7 @@ optional arguments:
 
 
 #10. Summary Table
+
 # | Command                     | Purpose                               |
 # | --------------------------- | ------------------------------------- |
 # | `python hello.py runserver` | Start Flask server                    |
