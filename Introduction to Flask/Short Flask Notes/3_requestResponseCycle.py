@@ -205,6 +205,7 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)
 '''
+#Explanation
 #a. from flask import request
 # - This imports the request object from Flask.
 # - The request object represents the HTTP request sent by the client (e.g., a browser) to your Flask server.
@@ -241,3 +242,61 @@ Chrome/115.0.0.0 Safari/537.36
     # - Finds the User-Agent header (browser details).
 # - Returns an HTML paragraph showing that browser info.
 # - The browser displays the result.
+                    # ------- 
+                    
+
+#2. Consider the code below:
+'''
+from flask import Flask, make_response
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    response = make_response('<h1>This document carries a cookie!</h1>')
+    response.set_cookie('answer', '42')
+    return response
+
+if __name__ == "__main__":
+    app.run(debug=True)
+'''
+# Explanation:
+#a. from flask import make_response
+# - Imports Flask’s make_response() function.
+# - Normally in Flask, you can just return "Hello" and Flask automatically
+#   creates an HTTP response object for you.
+# - But if you want more control over the response (e.g., adding cookies, 
+#   changing headers, status codes), you create the response object yourself
+#   using make_response().
+
+#b. response = make_response('<h1>This document carries a cookie!</h1>')
+# - This creates an HTTP response object containing:
+    # - Body → "<h1>This document carries a cookie!</h1>"
+    # - Default status code → 200 OK
+    # - Default headers → e.g., Content-Type: text/html
+# - make_response() lets you customize this response before sending it to the browser.
+
+#c. response.set_cookie('answer', '42')
+# - This adds a cookie to the HTTP response
+# - A cookie is a small piece of data stored in the browser, sent back to the server with future requests.
+# - Here:
+    # - Cookie name: "answer"
+    # - Cookie value: "42"
+# - When the browser receives this cookie, it will save it and send it back in future requests to the same server.
+
+#d. Example of the HTTP response headers this creates:
+'''
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Set-Cookie: answer=42; Path=/
+'''
+
+#e. return response
+# - Sends the customized HTTP response (HTML + cookie) back to the browser.
+# - The browser will:
+    # - Display the HTML: “This document carries a cookie!”
+    # - Store the cookie answer=42.
+# - On the next request to the same domain, the browser automatically sends back:
+'''
+Cookie: answer=42
+'''
