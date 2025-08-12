@@ -101,3 +101,73 @@ def user(name):
 {% endfor %}
 </ul>
 '''
+# - You can also import macros from other files
+'''
+`html`
+
+{% import 'macros.html' as macros %}
+{{ macros.render_comment("Nice post!") }}
+'''
+# To render means to take a template (like an HTML file with placeholders) and
+# combine it with data to produce a final HTML page that the browser can display.
+
+
+#7. Includes
+# - Lets you reuse common pieces of HTML:
+'''
+`hmtl`
+
+{% include 'navbar.html' %}
+'''
+
+
+#8. Template Inheritance
+#i. Create a base template (base.html):
+'''
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # No variables
+
+@app.route('/hello/<name>')
+def hello(name):
+    return render_template('hello.html', name=name)  # Pass variables
+'''
+
+#ii. Create a child template:
+'''
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<h1>Welcome!</h1>
+{% endblock %}
+'''
+
+#iii. How it works:
+# - {% block %} → placeholders that child templates can override.
+# - {% extends %} → tells Jinja2 to start with base.html.
+# - {{ super() }} → keep original block content and add to it.
+
+
+#9.  Rendering Templates in Flask
+'''
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # No variables
+
+@app.route('/hello/<name>')
+def hello(name):
+    return render_template('hello.html', name=name)  # Pass variables
+'''
+
+# Note:
+    # - Templates must be in a templates/ folder.
+    # - Variables are passed as keyword arguments to render_template.
+
