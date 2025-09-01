@@ -46,8 +46,8 @@
 }
 ```
 
-👉 Pros: Faster reads (no joins).
-👉 Cons: Updating role = update every user’s document.
+👉 Pros: Faster reads (no joins).  
+👉 Cons: Updating role = update every user’s document.  
 
 
 ## 4. 4. SQL vs NoSQL
