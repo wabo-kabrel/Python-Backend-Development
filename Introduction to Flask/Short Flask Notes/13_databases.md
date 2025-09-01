@@ -50,4 +50,22 @@
 👉 Cons: Updating role = update every user’s document.  
 
 
-## 4. 4. SQL vs NoSQL
+## 4. SQL vs NoSQL
+
+| Feature          | SQL (Relational)            | NoSQL (Document)              |
+| ---------------- | --------------------------- | ----------------------------- |
+| Structure        | Tables, Rows, Columns       | JSON-like Documents           |
+| Relationships    | Strong (joins supported)    | Weak (joins avoided)          |
+| Data Duplication | Low                         | High (due to denormalization) |
+| Best For         | Structured, consistent data | Flexible, fast reads          |
+
+✅ For **Flask apps** (especially small/medium projects) → SQL is usually the better choice.
+
+
+## 5. Flask and Databases
+Flask is **database-agnostic**:
+- You can use **MySQL, PostgreSQL, SQLite, MongoDB, Redis, etc.**
+- But you need a **driver** or **ORM** to connect.
+
+
+## 6. SQLAlchemy (ORM for Flask)
