@@ -101,3 +101,205 @@ config = {
 
 
 ## 🏗️ Application Package (app/)
+Here's where the magic happens.
+
+### 1. Application Factory (app/__init__.py)
+Instead of creating the app globally, use a function `create_app()`.
+
+**Why?**
+- Let's you configure app dynamically.
+- Useful for **testing** (e.g., test DB vs production DB).
+- Allows multiple app instances.
+```python
+from flask import Flask
+from flask_bootstrap import Bootstrap
+from flask_mail import Mail
+from flask_moment import Moment
+from flask_sqlalchemy import SQLAlchemy
+from config import config
+
+bootstrap = Bootstrap()
+mail = Mail()
+moment = Moment()
+db = SQLAlchemy()
+
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
+
+    bootstrap.init_app(app)
+    mail.init_app(app)
+    moment.init_app(app)
+    db.init_app(app)
+
+    # register blueprints
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    return app
+```
+
+### 2. Blueprints (app/main/)
+Blueprints let you organize features separately.
+Instead of defining routes on the app directly, you define them on a blueprint.
+- `__init__.py`
+```python
+from flask import Blueprint
+main = Blueprint('main', __name__)
+from . import views, errors
+````
+
+- `views.py`
+```python
+from datetime import datetime
+from flask import render_template, session, redirect, url_for
+from . import main
+from .forms import NameForm
+from .. import db
+from ..models import User
+
+@main.route('/', methods=['GET', 'POST'])
+def index():
+    form = NameForm()
+    if form.validate_on_submit():
+        # save user, send email, etc.
+        return redirect(url_for('.index'))  # notice the dot!
+    return render_template('index.html',
+                           form=form,
+                           name=session.get('name'),
+                           known=session.get('known', False),
+                           current_time=datetime.utcnow())
+```
+
+- `errors.py`
+```python
+from flask import render_template
+from . import main
+
+@main.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+```
+
+**👉 Key ideas:**
+- Blueprints avoid circular imports.
+- They're modular — you can have `auth`, `api`, `main` as separate blueprints.
+- Routes inside blueprints are namespaced (`main.index` instead of `index`).
+```
+
+## 🚦 Launch Script `(manage.py)`
+This is you app's entry point.
+```python
+#!/usr/bin/env python
+import os
+from app import create_app, db
+from app.models import User, Role
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(app)
+migrate = Migrate(app, db)
+
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Role=Role)
+
+manager.add_command("shell", Shell(make_context=make_shell_context))
+manager.add_command('db', MigrateCommand)
+
+@manager.command
+def test():
+    """Run the unit tests."""
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+if __name__ == '__main__':
+    manager.run()
+```
+
+**👉 What it does:**
+- Starts the app (`python manage.py runserver`).
+- Manages migrations (`python manage.py db upgrade`).
+- Runs tests (`python manage.py test`).
+- Starts a Python shell with app preloaded (`python manage.py shell`).
+
+
+## 📦 Dependencies (`requirements.txt`)
+Keep track of versions so your app works the same everywhere.
+```txt
+Flask==0.10.1
+Flask-Bootstrap==3.0.3.1
+Flask-Mail==0.9.0
+Flask-Migrate==1.1.0
+Flask-Moment==0.2.0
+Flask-SQLAlchemy==1.0
+Flask-Script==0.6.6
+Flask-WTF==0.9.4
+```
+**Generate it**
+```bash
+pip freeze > requirements.txt
+```
+**Install it:**
+```bash
+pip install -r requirements.txt
+```
+
+## 🧪 Unit Tests (`tests/`)
+**Example:**
+```python
+import unittest
+from flask import current_app
+from app import create_app, db
+
+class BasicsTestCase(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app('testing')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
+
+    def test_app_exists(self):
+        self.assertFalse(current_app is None)
+
+    def test_app_is_testing(self):
+        self.assertTrue(current_app.config['TESTING'])
+```
+**👉 Tests are run using:**
+```bash
+python manage.py test
+```
+
+
+## 🗄️ Database Setup
+- Each config (dev, test, prod) has its own DB.
+- Use **Flask-Migrate** for migrations.
+- Run:
+
+```bash
+python manage.py db init
+python manage.py db migrate -m "initial migration"
+python manage.py db upgrade
+```
+
+## ✅ Recap (Big Picture)
+1. **Split app into packages** → `app/`, `tests/`, `migrations/`.
+2. **Configs** → `config.py` with different environments.
+3. **App factory** → `create_app()` in `app/__init__.py`.
+4. **Blueprints** → modular organization (`main/`, `auth/`, etc.).
+5. **manage.py** → run, migrate, test, shell.
+6. **requirements.txt** → track dependencies.
+Unit tests → reliable, automated testing.
+
+This structure makes your app:
+✔ Scalable
+✔ Testable
+✔ Configurable
+✔ Maintainable
