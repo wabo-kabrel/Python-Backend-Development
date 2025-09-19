@@ -22,3 +22,4 @@
 ├── urls.py        ← You’ll create this manually
 └── __init__.py
 '''
+# - Run your Django project/site using the command: python manage.py runserver
